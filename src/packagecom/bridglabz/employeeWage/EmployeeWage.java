@@ -1,19 +1,68 @@
 package com.bridglabz.employeeWage;
+//Employee Wage Computation Problems Using OOPS Concept
+//Ability To Save Total Wage For Each Company
+//Employee Wage Computation Problems Using OOPS Concept
+//Ability To Save Total Wage For Each Company
+public class EmployeeWage
+{
+    final int IS_PART_TIME = 1;
+    final int IS_FULL_TIME = 2;
 
-import java.util.Random;
+    final String companyName;
+    final int empRatePerHour;
+    final int numOfWorkingDays;
+    final int maxHoursPerMonth;
+    int totalEmpWage;
 
-public class EmployeeWage {
-
-    public static void main(String[] args) {
-        System.out.println("Welcome to Employee Wage Computation Program");
-
-        Random random= new Random();
-        int attendance=random.nextInt(2);
-
-        if(attendance == 1)
-            System.out.println("Employee Present..");
-        else
-            System.out.println("Employee Absent..");
+    public EmployeeWage(String companyName, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
+    {
+        this.companyName = companyName;
+        this.empRatePerHour = empRatePerHour;
+        this.numOfWorkingDays = numOfWorkingDays;
+        this.maxHoursPerMonth = maxHoursPerMonth;
     }
 
+    public void computeEmpWage()
+    {
+        //variables
+        int empHrs = 0,totalEmpHrs = 0, totalWorkingDays = 0;
+
+        //Computation
+        while (totalEmpHrs <= maxHoursPerMonth &&
+                totalWorkingDays < numOfWorkingDays)
+        {
+            totalWorkingDays++;
+            int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+            switch (empCheck)
+            {
+                case IS_PART_TIME:
+                    empHrs = 4;
+                    break;
+                case IS_FULL_TIME:
+                    empHrs = 8;
+                    break;
+                default:
+                    empHrs = 0;
+            }
+            totalEmpHrs += empHrs;
+            System.out.println("Day: " + totalWorkingDays + " Emp Hr: " + empHrs);
+        }
+        totalEmpWage = totalEmpHrs * empRatePerHour;
+
+
+
+    }
+
+    public String toString() {
+        return "Total Emp Wage for Company: " + companyName +" is: " + totalEmpWage;
+    }
+    public static void main(String[] args) {
+
+        EmployeeWage dMart = new EmployeeWage("D-Mart", 20, 20, 100);
+        EmployeeWage reliance = new EmployeeWage("Amazon", 10, 10, 100);
+        dMart.computeEmpWage();
+        System.out.println(dMart);
+        reliance.computeEmpWage();
+        System.out.println(reliance);
+    }
 }
